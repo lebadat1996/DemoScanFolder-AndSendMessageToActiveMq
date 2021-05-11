@@ -4,8 +4,11 @@ import java.io.File;
 
 public class main {
     public static void main(String[] args) {
-        String path = buildFolderPath("E:\\Scan", "folder1");
-        System.out.println(path);
+//        String path = buildFolderPath("E:\\Scan", "folder1");
+//        System.out.println(path);
+        String regex = "[a-zA-Z_,.]{0,100}";
+        String name = "dsadsadsadas_,.";
+        System.out.println(name.matches(regex));
     }
 
     public static String buildFolderPath(String folderParent, String folderChild) {
