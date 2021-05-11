@@ -18,17 +18,62 @@ public class AppServiceImpl implements AppServiceScan {
     PropertyConfig config;
 
     @Override
-    public void scanFolder(String folderName, String queueName) {
-        boolean validateNameFolder = validateService.validateNameFolder(folderName, "[a-zA-Z_,.]{0,100}]");
-        String pathFolderScan = buildFolderPath(config.getFolderScan(), config.getFolderChildren());
-        File folder = new File(pathFolderScan);
-        List<File> collect = Stream.of(folder.listFiles()).filter(File::isDirectory).collect(Collectors.toList());
-        for (File file : collect) {
-
+    public void scanFolder(String queueName) {
+        try {
+            System.out.println(config.getFolderScan() + " parent");
+            System.out.println(config.getFolderChildren() + " children");
+            String pathFolderScan = buildFolderPath(config.getFolderScan(), config.getFolderChildren());
+            File folder = new File(pathFolderScan);
+            File[] listOfFiles = folder.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    System.out.println("File " + listOfFiles[i].getName());
+                } else if (listOfFiles[i].isDirectory()) {
+                    System.out.println("Directory " + listOfFiles[i].getName());
+                    boolean validateNameFolder = validateNameFolder(listOfFiles[i].getName(), "[a-zA-Z_,.]{0,100}");
+                    if (validateNameFolder) {
+                        System.out.println("validate thanh cong");
+                    } else {
+                        System.out.println("validate khong thanh cong");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static String buildFolderPath(String folderParent, String folderChild) {
         return folderParent + File.separatorChar + folderChild;
     }
+
+    public static boolean validateNameFolder(String folderName, String regex) {
+        if (folderName.matches(regex)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        String pathFolderScan = buildFolderPath("D:\\Scan", "folder1");
+        System.out.println("Name: " + pathFolderScan);
+        File folder = new File(pathFolderScan);
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                System.out.println("File " + listOfFiles[i].getName());
+            } else if (listOfFiles[i].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[i].getName());
+                boolean validateNameFolder = validateNameFolder(listOfFiles[i].getName(), "[a-zA-Z_,.]{0,100}");
+                if (validateNameFolder) {
+                    System.out.println("validate thanh cong");
+                } else {
+                    System.out.println("validate khong thanh cong");
+                }
+            }
+        }
+    }
 }
+

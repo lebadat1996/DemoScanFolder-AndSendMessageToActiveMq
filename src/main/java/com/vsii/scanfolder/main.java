@@ -7,7 +7,7 @@ public class main {
 //        String path = buildFolderPath("E:\\Scan", "folder1");
 //        System.out.println(path);
         String regex = "[a-zA-Z_,.]{0,100}";
-        String name = "dsadsadsadas_,.";
+        String name = "abcdsadsadnsadaskndasdasdlqweqw";
         System.out.println(name.matches(regex));
     }
 
