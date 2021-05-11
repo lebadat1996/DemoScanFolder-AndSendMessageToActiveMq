@@ -1,5 +1,6 @@
 package com.vsii.scanfolder.service.Impl;
 
+import com.vsii.scanfolder.Util.JmsUtils;
 import com.vsii.scanfolder.config.PropertyConfig;
 import com.vsii.scanfolder.service.AppServiceScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class AppServiceImpl implements AppServiceScan {
     ValidateServiceImpl validateService;
     @Autowired
     PropertyConfig config;
+    @Autowired
+    JmsUtils jmsUtils;
 
     @Override
     public void scanFolder(String queueName) {
@@ -33,6 +36,7 @@ public class AppServiceImpl implements AppServiceScan {
                     boolean validateNameFolder = validateNameFolder(listOfFiles[i].getName(), "[a-zA-Z_,.]{0,100}");
                     if (validateNameFolder) {
                         System.out.println("validate thanh cong");
+                        jmsUtils.sendFolderUrlMessage(listOfFiles[i].getAbsolutePath(), "queueScan");
                     } else {
                         System.out.println("validate khong thanh cong");
                     }
