@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class PropertyConfig {
-    @Value(value = "com.vsii.folder.name")
+    @Value(value = "${com.vsii.folder.name}")
     private String folderScan;
 
-    @Value(value = "com.vsii.folder.name.children")
+    @Value(value = "${com.vsii.folder.name.children}")
     private String folderChildren;
+
 }
