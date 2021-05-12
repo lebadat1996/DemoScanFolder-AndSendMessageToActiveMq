@@ -23,7 +23,7 @@ public class AppServiceImpl implements AppServiceScan {
         String pathFolderScan = buildFolderPath(config.getFolderScan(), config.getFolderChildren());
         File folder = new File(pathFolderScan);
         List<File> collect = Stream.of(folder.listFiles()).filter(File::isDirectory).collect(Collectors.toList());
-        for (File file : collect) {
+        for (File file: collect){
 
         }
     }
